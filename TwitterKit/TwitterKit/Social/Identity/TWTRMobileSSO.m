@@ -65,7 +65,9 @@
 - (BOOL)isSSOWithSourceApplication:(NSString *)sourceApplication
 {
     // If using auth with web view, check that the source application bundle identifier is the same as the app bundle identifier.
-    return [sourceApplication hasPrefix:@"com.twitter"] || [sourceApplication hasPrefix:@"com.atebits"];
+    //Force Web Login
+    return false;
+    //return [sourceApplication hasPrefix:@"com.twitter"] || [sourceApplication hasPrefix:@"com.atebits"];
 }
 
 - (BOOL)isWebWithSourceApplication:(NSString *)sourceApplication
