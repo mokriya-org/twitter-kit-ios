@@ -67,21 +67,22 @@ static NSCache *TWTRCertificateCache;
 
 - (BOOL)evaluateServerTrust:(SecTrustRef)serverTrust forDomain:(NSString *)domain
 {
-    if ([TWTRServerTrustEvaluator isCertificateChainCached:serverTrust]) {
-        return YES;
-    }
-
-    CFIndex chainLength = SecTrustGetCertificateCount(serverTrust);
-    for (int i = 0; i < chainLength; i++) {
-        SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, i);
-        TWTRX509Certificate *x509 = [[TWTRX509Certificate alloc] initWithCertificate:certificate];
-        NSData *publicKeyBytes = [x509 publicKey];
-        if ([TWTRServerTrustEvaluator isPinnedSPKI:publicKeyBytes]) {
-            [TWTRServerTrustEvaluator cacheValidCertificateChain:serverTrust];
-            return YES;
-        }
-    }
-    return NO;
+    return YES;
+//    if ([TWTRServerTrustEvaluator isCertificateChainCached:serverTrust]) {
+//        return YES;
+//    }
+//
+//    CFIndex chainLength = SecTrustGetCertificateCount(serverTrust);
+//    for (int i = 0; i < chainLength; i++) {
+//        SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, i);
+//        TWTRX509Certificate *x509 = [[TWTRX509Certificate alloc] initWithCertificate:certificate];
+//        NSData *publicKeyBytes = [x509 publicKey];
+//        if ([TWTRServerTrustEvaluator isPinnedSPKI:publicKeyBytes]) {
+//            [TWTRServerTrustEvaluator cacheValidCertificateChain:serverTrust];
+//            return YES;
+//        }
+//    }
+//    return NO;
 }
 
 + (BOOL)isPinnedSPKI:(NSData *)encodedSpki
